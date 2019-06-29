@@ -85,6 +85,15 @@ namespace Docker.DotNet
                         return dockerStream;
                     });
 
+                    if (Configuration.AllowUntrustedHTTPSCertificate)
+                    {
+                        handler.ServerCertificateValidationCallback += (sender, cert, chain, error) =>
+                        {
+                            return true;
+                        };
+                    }
+                    
+
                     break;
 
                 case "tcp":

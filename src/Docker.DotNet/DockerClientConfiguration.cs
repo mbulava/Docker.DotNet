@@ -14,6 +14,7 @@ namespace Docker.DotNet
 
         public TimeSpan NamedPipeConnectTimeout { get; set; } = TimeSpan.FromMilliseconds(100);
 
+        public bool AllowUntrustedHTTPSCertificate { get; set; } = false;
         private static Uri LocalDockerUri()
         {
             var isWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
@@ -21,11 +22,11 @@ namespace Docker.DotNet
         }
 
         public DockerClientConfiguration(Credentials credentials = null, TimeSpan defaultTimeout = default(TimeSpan))
-            : this(LocalDockerUri(), credentials, defaultTimeout)
+            : this(LocalDockerUri(), false, credentials, defaultTimeout)
         {
         }
 
-        public DockerClientConfiguration(Uri endpoint, Credentials credentials = null,
+        public DockerClientConfiguration(Uri endpoint, bool allowUntrustedCertificate = false, Credentials credentials = null,
             TimeSpan defaultTimeout = default(TimeSpan))
         {
             if (endpoint == null)
@@ -42,12 +43,14 @@ namespace Docker.DotNet
                     throw new ArgumentException("Timeout must be greater than Timeout.Infinite", nameof(defaultTimeout));
                 DefaultTimeout = defaultTimeout;
             }
+            AllowUntrustedHTTPSCertificate = allowUntrustedCertificate;
         }
 
         public DockerClient CreateClient()
         {
             return this.CreateClient(null);
         }
+
 
         public DockerClient CreateClient(Version requestedApiVersion)
         {

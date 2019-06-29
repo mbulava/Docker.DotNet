@@ -15,17 +15,17 @@ namespace Docker.DotNet.Tests
             _client = new DockerClientConfiguration().CreateClient();
         }
 
-        [Fact]
-        public async Task GetServicesAsync_Succeeds()
-        {
-            var services = await _client.Swarm.ListServicesAsync(cancellationToken: CancellationToken.None);
-            Assert.Equal(2, services.Count());
-        }
-        [Fact]
-        public async Task GetFilteredServicesAsync_Succeeds()
-        {
-            var services = await _client.Swarm.ListServicesAsync(new ServicesListParameters { Filters = new ServiceFilter { Id = "pr6264hhb836" } }, CancellationToken.None);
-            Assert.Single(services);
-        }
+        //[Fact]
+        //public async Task GetServicesAsync_Succeeds()
+        //{
+        //    var services = await _client.Swarm.ListServicesAsync(cancellationToken: CancellationToken.None);
+        //    Assert.Equal(2, services.Count());
+        //}
+        //[Fact]
+        //public async Task GetFilteredServicesAsync_Succeeds()
+        //{
+        //    var services = await _client.Swarm.ListServicesAsync(new ServicesListParameters { Filters = new ServiceFilter { Id = "pr6264hhb836" } }, CancellationToken.None);
+        //    Assert.Single(services);
+        //}
     }
 }

@@ -21,7 +21,7 @@ namespace Docker.DotNet.Tests
         public void DockerService_IsRunning()
         {
             var services = ServiceController.GetServices();
-            using (var dockerService = services.SingleOrDefault(service => service.ServiceName == "docker"))
+            using (var dockerService = services.SingleOrDefault(service => service.ServiceName == "com.docker.service"))
             {
                 Assert.NotNull(dockerService); // docker is not running
                 Assert.Equal(ServiceControllerStatus.Running, dockerService.Status);
@@ -63,7 +63,7 @@ namespace Docker.DotNet.Tests
         [Fact]
         public async Task MonitorEventsAsync_Succeeds()
         {
-            const string repository = "microsoft/nanoserver";
+            const string repository = "alpine";
             const string tag = "MonitorTests";
 
             var wasProgressCalled = false;
